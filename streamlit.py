@@ -10,6 +10,12 @@ st.subheader('Slider')
 age = st.slider('Quantos anos você tem?', 0, 130, 25)
 st.write("Eu tenho ", age, ' anos')
 
+
+
+
+idade = st.slider('teste', 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10)
+st.write('o teste deu', idade, 'de idade')
+
 # Exemplo 2
 
 st.subheader('Slider de intervalo')
