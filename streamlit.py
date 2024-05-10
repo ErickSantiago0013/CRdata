@@ -7,7 +7,7 @@ st.header('ST')
 
 # Exemplo 1
 
-st.write('Testando pra saber se sei 😂:')
+st.write('aaaaaaaaaaaaaaaaaaaaaaaaaa😂:')
 
 # Exemplo 2
 
