@@ -1,9 +1,17 @@
 import streamlit as st
 
-st.header('st.latex')
+st.title('Customizando o tema de aplicações Streamlit')
 
-st.latex(r'''
-     a + ar + a r^2 + a r^3 + \cdots + a r^{n-1} =
-     \sum_{k=0}^{n-1} ar^k =
-     a \left(\frac{1-r^{n}}{1-r}\right)
-     ''')
+st.write('Conteúdo do arquivo `.streamlit/config.toml` desta aplicação')
+
+st.code("""
+[theme]
+primaryColor="#F39C12"
+backgroundColor="#2E86C1"
+secondaryBackgroundColor="#AED6F1"
+textColor="#FFFFFF"
+font="monospace"
+""")
+
+number = st.sidebar.slider('Selecione um número:', 0, 10, 5)
+st.write('O número selecionado no controle deslizante é:', number)
