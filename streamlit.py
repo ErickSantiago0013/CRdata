@@ -21,19 +21,19 @@ def generate_sales_data():
 def main():
     st.title("Dados de Vendas Simuladas")
     
-    # Criar um dataframe vazio para armazenar os dados de vendas
-    sales_df = pd.DataFrame(columns=["Product ID", "Quantity", "Price"])
+    # Criar uma lista vazia para armazenar os dados de vendas
+    sales_data = []
     
-    # Criar um componente para exibir o dataframe
-    table = st.table(sales_df)
+    # Criar um componente para exibir a tabela na página da web
+    table = st.table(pd.DataFrame())
     
     # Iniciar o streaming de dados de vendas simuladas
     for sale in generate_sales_data():
-        # Adicionar a venda ao dataframe
-        sales_df = sales_df.append(sale, ignore_index=True)
+        # Adicionar a venda à lista de dados de vendas
+        sales_data.append(sale)
         
-        # Atualizar a exibição da tabela na página da web
-        table.dataframe(sales_df)
+        # Atualizar o DataFrame e exibir a tabela na página da web
+        table.dataframe(pd.DataFrame(sales_data))
         
 # Executar o aplicativo principal
 if __name__ == "__main__":
