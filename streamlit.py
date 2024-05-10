@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import time
 import random
+import matplotlib.pyplot as plt
 
 # Função para gerar dados de vendas simuladas
 def generate_sales_data():
@@ -19,6 +21,7 @@ def generate_sales_data():
 
 # Criar uma página da web com o Streamlit
 def main():
+    st.set_page_config(layout="wide")
     st.title("Dashboard de Vendas Simuladas")
     
     # Criar controles de filtro
@@ -29,9 +32,6 @@ def main():
     
     # Criar uma lista vazia para armazenar os dados de vendas
     sales_data = []
-    
-    # Criar um componente para exibir a tabela na página da web
-    table = st.table(pd.DataFrame())
     
     # Iniciar o streaming de dados de vendas simuladas
     for sale in generate_sales_data():
@@ -45,8 +45,26 @@ def main():
         if filter_options:
             sales_df = sales_df[filter_options]
         
+        # Dividir a página em duas colunas
+        col1, col2 = st.beta_columns(2)
+        
+        # Exibir gráfico de barras para quantidades vendidas de cada produto
+        with col1:
+            st.subheader("Quantidade Vendida de Cada Produto")
+            product_counts = sales_df['Product ID'].value_counts()
+            st.bar_chart(product_counts)
+        
+        # Exibir gráfico de linha para acompanhar a variação de preços ao longo do tempo
+        with col2:
+            st.subheader("Variação de Preços ao Longo do Tempo")
+            sales_df['Timestamp'] = pd.Timestamp.now()
+            sales_df['Timestamp'] = pd.to_datetime(sales_df['Timestamp'])
+            price_data = sales_df[['Timestamp', 'Price']].set_index('Timestamp')
+            st.line_chart(price_data)
+        
         # Atualizar a tabela na página da web
-        table.dataframe(sales_df)
+        st.subheader("Tabela de Dados de Vendas")
+        st.write(sales_df)
         
 # Executar o aplicativo principal
 if __name__ == "__main__":
