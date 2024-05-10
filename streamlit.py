@@ -1,11 +1,9 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 
-st.header('Gráfico de linhas')
+st.header('st.selectbox')
 
-chart_data = pd.DataFrame(
-     np.random.randn(20, 3),
-     columns=['a', 'b', 'c'])
+option = st.selectbox(
+     'Qual a sua cor favorita?',
+     ('Azul', 'Vermelho', 'Verde'))
 
-st.line_chart(chart_data)
+st.write('Sua cor favorita é ', option)
