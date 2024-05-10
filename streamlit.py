@@ -1,18 +1,30 @@
 import streamlit as st
+import requests
 
-st.title('st.session_state')
+st.title('🏀 Bored API')
 
-def lbs_to_kg():
-  st.session_state.kg = st.session_state.lbs/2.2046
-def kg_to_lbs():
-  st.session_state.lbs = st.session_state.kg*2.2046
+st.sidebar.header('Entrada')
+selected_type = st.sidebar.selectbox('Escolha um tipo de atividade', ["educação", "recreação", "social", "faça você mesmo", "caridade", "cozinhar", "relaxar", "música", "tarefas pequenas"])
 
-st.header('Entrada')
-col1, spacer, col2 = st.columns([2,1,2])
+suggested_activity_url = f'http://www.boredapi.com/api/activity?type={selected_type}'
+json_data = requests.get(suggested_activity_url)
+suggested_activity = json_data.json()
+
+c1, c2 = st.columns(2)
+with c1:
+  with st.expander('Sobre'):
+    st.write('Você está com tédio? A **Bored API** fornece sugestões de atividades que você pode fazer quando estiver com tédio. Esta aplicação é alimentado pela API Bored.')
+with c2:
+  with st.expander('JSON data'):
+    st.write(suggested_activity)
+
+st.header('Atividade sugerida')
+st.info(suggested_activity['activity'])
+
+col1, col2, col3 = st.columns(3)
 with col1:
-  pounds = st.number_input("Libras:", key = "lbs", on_change = lbs_to_kg)
+  st.metric(label='Número de Participantes', value=suggested_activity['participants'], delta='')
 with col2:
-  kilogram = st.number_input("Kg:", key = "kg", on_change = kg_to_lbs)
-
-st.header('Saída')
-st.write("Objeto st.session_state:", st.session_state)
+  st.metric(label='Tipo da atividade', value=suggested_activity['type'].capitalize(), delta='')
+with col3:
+  st.metric(label='Preço', value=suggested_activity['price'], delta='')
