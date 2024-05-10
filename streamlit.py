@@ -13,8 +13,8 @@ st.write("Eu tenho ", age, ' anos')
 
 
 
-idade = st.slider('teste', 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10)
-st.write('o teste deu', idade, 'de idade')
+age = st.slider('teste', 1, 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10)
+st.write("o teste deu", age, 'de idade')
 
 # Exemplo 2
 
